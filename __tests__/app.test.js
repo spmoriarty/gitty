@@ -22,12 +22,14 @@ describe('oauth routes', () => {
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
 
-      expect(res.body).toEqual({
-        id: expect.any(String),
-        username: 'fake_github_user',
-        email: 'lamp@shade.com',
-        avatar: expect.any(String),
-      })
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      username: 'fake_github_user',
+      email: 'lamp@shade.com',
+      avatar: expect.any(String),
+      iat: expect.any(Number),
+      exp: expect.any(Number),
+    });
 
   
   
