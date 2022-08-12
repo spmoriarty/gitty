@@ -1,5 +1,6 @@
 -- Use this file to define your SQL tables
 DROP TABLE IF EXISTS github_users;
+DROP TABLE IF EXISTS posts;
 -- The SQL in this file will be executed when you run `npm run setup-db`
 
 
@@ -9,3 +10,18 @@ CREATE TABLE github_users (
     email TEXT,
     avatar TEXT
 );
+
+CREATE TABLE posts (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    title TEXT NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+INSERT INTO posts (
+    title,
+    description
+)
+VALUES 
+('All your bases belong to us', 'No they dont'),
+('Want Sum?', 'Git Sum');

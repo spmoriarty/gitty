@@ -18,6 +18,19 @@ describe('oauth routes', () => {
     pool.end();
   });
 
+  it('auth users can view list of post', async () => {
+    await agent.get('/api/v1/github/callback?code=42').redirects(1);
+    const res = await agent.get('/api/v1/posts');
+    expect(res.status).toBe(200),
+    expect(res.body[0]).toEqual({
+      id: expect.any(String),
+      created_at: expect.any(String),
+      title: expect.any(String),
+      description: expect.any(String)
+    });
+  });
+
+  
   it('auth users submit a a new Post', async () => {
     const newPost = {
       title: 'All your bases belong to us',
@@ -33,15 +46,4 @@ describe('oauth routes', () => {
   });
 
 
-  it.skip('auth users can view list of post', async () => {
-    await agent.get('/api/v1/github/callback?code=42').redirects(1);
-    const res = await agent.get('api/v1/posts');
-    expect(res.status).toBe(200),
-    expect(res.body[0]).toEqual({
-      id: expect.any(String),
-      created_at: expect.any(String),
-      title: expect.any(String),
-      description: expect.any(String)
-    });
-  });
 });
